@@ -1,0 +1,33 @@
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "diary"
+include ':app'
+include ':core-preferences'
+include ':core-designsystem'
+include ':feature-splash'
+include ':feature-theme'
+include ':core-model'
+include ':core-common'
+include ':feature-diary'
+include ':feature-calendar'
+include ':feature-insight'
+include ':feature-setting'
+include ':feature-note'
+include ':core-navigation'
+include ':feature-setting:password'
+include ':feature-setting:delete-data'
+include ':core-data'
+include ':core-domain'
