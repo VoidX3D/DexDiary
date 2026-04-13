@@ -55,7 +55,7 @@ fun NoteTopBar(
                     onDeleteClicked()
                 }) {
                     Icon(
-                        painter = painterResource(id = com.easylife.diary.core.designsystem.R.drawable.ic_trash),
+                        painter = painterResource(id = R.drawable.ic_trash),
                         contentDescription = "delete icon",
                         tint = red
                     )
@@ -64,7 +64,7 @@ fun NoteTopBar(
                     onEditClicked()
                 }) {
                     Icon(
-                        painter = painterResource(id = com.easylife.diary.core.designsystem.R.drawable.ic_edit),
+                        painter = painterResource(id = R.drawable.ic_edit),
                         contentDescription = "edit icon"
                     )
                 }

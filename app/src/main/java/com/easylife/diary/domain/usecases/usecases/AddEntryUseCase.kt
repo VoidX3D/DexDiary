@@ -32,7 +32,7 @@ class AddEntryUseCase @Inject constructor(
         val mediaPaths: List<String> = emptyList()
     )
 
-    override suspend fun execute(params: Params): Flow<DiaryResult<Int>> = flow {
+    override suspend fun execute(params: Params): Flow<DiaryResult<Int?>> = flow {
         try {
             // Golden rule: one entry per current day.
             if (entryRepository.hasEntryForGivenLocalDate(LocalDate.now())) {

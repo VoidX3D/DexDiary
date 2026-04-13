@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.accompanist.navigation.animation)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
     implementation(libs.gson)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

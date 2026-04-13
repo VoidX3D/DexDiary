@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 /**
  * Created by erenalpaslan on 2.01.2023
@@ -61,8 +62,10 @@ fun DiaryScreenTopBar(
                         placeholder = {
                             Text("Search", style = MaterialTheme.typography.titleLarge)
                         },
-                        colors = TextFieldDefaults.textFieldColors(
-                            textColor = MaterialTheme.colorScheme.onBackground,
+                        colors = TextFieldDefaults.colors(
+                            focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                            disabledTextColor = MaterialTheme.colorScheme.onBackground,
                             containerColor = Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
@@ -95,7 +98,7 @@ fun DiaryScreenTopBar(
                     )
                 }
             },
-            colors = TopAppBarDefaults.smallTopAppBarColors(
+            colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background,
                 titleContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.background),
                 actionIconContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.background)
@@ -135,7 +138,7 @@ fun DiaryScreenTopBar(
                     }
                 }
             },
-            colors = TopAppBarDefaults.smallTopAppBarColors(
+            colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background,
                 titleContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.background),
                 actionIconContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.background)

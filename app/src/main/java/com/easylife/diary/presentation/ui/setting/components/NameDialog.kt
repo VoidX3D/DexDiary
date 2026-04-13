@@ -18,7 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.easylife.diary.core.designsystem.R
+import com.easylife.diary.R
 
 /**
  * Created by erenalpaslan on 6.01.2023

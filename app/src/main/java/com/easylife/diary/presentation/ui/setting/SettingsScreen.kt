@@ -23,13 +23,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.core.designsystem.components.NavigationButton
-import com.easylife.diary.core.designsystem.R
 import com.easylife.diary.core.designsystem.components.FeedbackComposable
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
-import com.easylife.diary.presentation.ui.setting.navigation.navigateToNotificationSettings
 import com.easylife.diary.presentation.ui.setting.components.NameDialog
 
 /**
@@ -128,7 +127,7 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                 NavigationButton(
                     title = "Daily logging reminder",
                     icon = R.drawable.ic_notification,
-                ) { navigator.navigateToNotificationSettings() }
+                ) { navigator.navigate(DiaryRoutes.notificationSettingsRoute) }
                 Spacer(modifier = Modifier.height(36.dp))
                 Text(
                     text = "OTHER",

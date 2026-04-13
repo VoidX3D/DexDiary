@@ -22,7 +22,7 @@ class NotificationSettingsScreen : BaseScreen<NotificationSettingsViewModel>() {
                 TopAppBar(
                     title = { Text("Notification Settings") },
                     navigationIcon = {
-                        IconButton(onClick = { navigator.navigateBack() }) {
+                        IconButton(onClick = { navigator.popBackStack() }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                         }
                     },

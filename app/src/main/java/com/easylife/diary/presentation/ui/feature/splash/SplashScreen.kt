@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
 
@@ -35,7 +35,7 @@ class SplashScreen : BaseScreen<SplashViewModel>() {
                 verticalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.dev_app_logo),
+                    painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
                     modifier = Modifier.size(100.dp)
                 )

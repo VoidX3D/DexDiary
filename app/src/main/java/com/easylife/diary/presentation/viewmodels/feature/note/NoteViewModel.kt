@@ -101,8 +101,8 @@ class NoteViewModel @Inject constructor(
                 mediaPaths = _uiState.value.mediaPaths
             )).collect { result ->
                 when (result) {
-                    is DiaryResult.Error -> _error.postValue(result.message)
-                    is DiaryResult.Success -> navigator.navigateBackWithResult(
+                    is DiaryResult.Error<*> -> _error.postValue(result.message)
+                    is DiaryResult.Success<*> -> navigator.navigateBackWithResult(
                         key = DiaryArgs.ENTRY_AFFECTED,
                         result = true
                     )

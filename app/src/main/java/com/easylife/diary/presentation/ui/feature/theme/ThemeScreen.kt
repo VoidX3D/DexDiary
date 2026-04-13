@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
 import com.easylife.diary.feature.theme.util.DiaryTheme
