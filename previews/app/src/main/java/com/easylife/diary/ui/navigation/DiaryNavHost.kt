@@ -22,6 +22,7 @@ import com.easylife.diary.feature.insight.navigation.insightsScreen
 import com.easylife.diary.feature.note.navigation.noteScreen
 import com.easylife.diary.feature.splash.navigation.splashScreen
 import com.easylife.diary.feature.theme.navigation.themeScreen
+import com.easylife.diary.feature.shop.navigation.shopScreen
 import com.github.feature.setting.navigation.settingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -41,6 +42,7 @@ fun DiaryNavHost(
     ) {
         splashScreen(navigator)
         themeScreen(navigator)
+        shopScreen(navigator)
         noteScreen(navigator)
         diaryScreen(navigator)
         calendarScreen(navigator)

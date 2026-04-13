@@ -1,43 +1,36 @@
 package com.easylife.diary.core.designsystem.components.entry
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AddCircle
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.easylife.diary.R
 
 /**
- * Created by erenalpaslan on 15.01.2023
+ * Created by erenalpaslan on 3.01.2023
  */
 @Composable
-fun EmptyEntryList(
-    message: String
-) {
+fun EmptyEntryList(message: String?) {
     Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize()
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "Nothing here yet",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
+        Icon(
+            imageVector = Icons.Rounded.AddCircle,
+            contentDescription = "Add Entry Icon",
+            modifier = Modifier.size(64.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = message,
-            textAlign = TextAlign.Center
+            text = message ?: "No entries yet. Start writing!",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

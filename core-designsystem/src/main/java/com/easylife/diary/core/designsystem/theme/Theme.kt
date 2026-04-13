@@ -19,15 +19,25 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 val DefaultColorScheme = lightColorScheme(
-    primary = gold,
-    onPrimary = black,
-    secondary = white,
-    tertiary = outerSpace,
-    background = alabaster,
-    onBackground = outerSpace,
-    surface = alabaster,
-    onSurface = outerSpace,
-    surfaceVariant = white,
-    onSurfaceVariant = darkGray,
-    outlineVariant = gray
+    primary = md_theme_primary,
+    onPrimary = md_theme_onPrimary,
+    primaryContainer = md_theme_primaryContainer,
+    onPrimaryContainer = md_theme_onPrimaryContainer,
+    secondary = md_theme_secondary,
+    onSecondary = md_theme_onSecondary,
+    secondaryContainer = md_theme_secondaryContainer,
+    onSecondaryContainer = md_theme_onSecondaryContainer,
+    tertiary = md_theme_tertiary,
+    onTertiary = md_theme_onTertiary,
+    tertiaryContainer = md_theme_tertiaryContainer,
+    onTertiaryContainer = md_theme_onTertiaryContainer,
+    error = md_theme_error,
+    onError = md_theme_onError,
+    background = md_theme_background,
+    onBackground = md_theme_onBackground,
+    surface = md_theme_surface,
+    onSurface = md_theme_onSurface,
+    surfaceVariant = md_theme_surfaceVariant,
+    onSurfaceVariant = md_theme_onSurfaceVariant,
+    outline = md_theme_outline
 )
