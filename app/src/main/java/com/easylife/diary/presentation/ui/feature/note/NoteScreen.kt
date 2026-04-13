@@ -49,6 +49,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.motion.adjustedDuration
 import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.designsystem.base.BaseScreen

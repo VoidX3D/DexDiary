@@ -23,9 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.theme.red
 import com.easylife.diary.core.model.insights.WeekData
-import com.easylife.diary.feature.insight.R
 
 /**
  * Created by erenalpaslan on 21.01.2023

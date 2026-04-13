@@ -23,6 +23,8 @@ val md_theme_onSurface = Color(0xFF1A1C16)
 val md_theme_surfaceVariant = Color(0xFFE1E4D5)
 val md_theme_onSurfaceVariant = Color(0xFF44483D)
 val md_theme_outline = Color(0xFF75796C)
+val red = md_theme_error
+val gray = md_theme_outline
 
 val red_theme_primary = Color(0xFF8F4C38)
 val red_theme_secondary = Color(0xFF77574E)

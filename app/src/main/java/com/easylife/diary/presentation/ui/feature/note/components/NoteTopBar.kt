@@ -20,9 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import com.easylife.diary.R
 import com.easylife.diary.core.designsystem.theme.red
 import com.easylife.diary.core.navigation.DiaryNavigator
-import com.easylife.diary.feature.note.R
 
 /**
  * Created by erenalpaslan on 8.01.2023
