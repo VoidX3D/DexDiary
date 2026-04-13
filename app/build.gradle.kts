@@ -40,34 +40,25 @@ android {
 dependencies {
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
-
-    //region Features
-    implementation(project(":feature-splash"))
-    implementation(project(":feature-theme"))
-    implementation(project(":feature-note"))
-    implementation(project(":feature-diary"))
-    implementation(project(":feature-calendar"))
-    implementation(project(":feature-insight"))
-    implementation(project(":feature-setting"))
-    //endregion
-
-    //region Cores
-    implementation(project(":core-designsystem"))
-    implementation(project(":core-preferences"))
-    implementation(project(":core-navigation"))
-    //endregion
-
-    //region Accompanist
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.accompanist.navigation.animation)
-    //endregion
+    implementation(libs.gson)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 
-    //region Datastore
     implementation(libs.datastore.core)
     implementation(libs.datastore.preferences)
-    //endregion
 
-    //region Networking
-    implementation(libs.gson)
     val okhttpBom = platform(libs.okhttp.bom)
     implementation(okhttpBom)
     implementation(libs.okhttp)
@@ -75,5 +66,4 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
     implementation(libs.retrofit.coroutine.adapter)
-    //endregion
 }
