@@ -1,12 +1,18 @@
 package com.easylife.diary.core.designsystem.theme
 
+import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 val DefaultColorScheme = lightColorScheme(
@@ -33,6 +39,22 @@ val DefaultColorScheme = lightColorScheme(
     outline = md_theme_outline
 )
 
+val DefaultDarkColorScheme = darkColorScheme(
+    primary = md_theme_primaryContainer,
+    onPrimary = md_theme_onPrimaryContainer,
+    secondary = md_theme_secondaryContainer,
+    onSecondary = md_theme_onSecondaryContainer,
+    tertiary = md_theme_tertiaryContainer,
+    onTertiary = md_theme_onTertiaryContainer,
+    background = md_theme_onBackground,
+    onBackground = md_theme_background,
+    surface = md_theme_onSurface,
+    onSurface = md_theme_surface,
+    surfaceVariant = md_theme_onSurfaceVariant,
+    onSurfaceVariant = md_theme_surfaceVariant,
+    outline = md_theme_outline
+)
+
 val ExpressiveShapes = Shapes(
     extraSmall = RoundedCornerShape(8.dp),
     small = RoundedCornerShape(12.dp),
@@ -43,12 +65,23 @@ val ExpressiveShapes = Shapes(
 
 @Composable
 fun AppDiaryTheme(
-    colorScheme: ColorScheme = DefaultColorScheme,
+    colorScheme: ColorScheme? = null,
     typography: Typography = DefaultTypography,
+    useDynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val isDark = isSystemInDarkTheme()
+    val context = LocalContext.current
+    val resolvedColorScheme = colorScheme ?: when {
+        useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            if (isDark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        isDark -> DefaultDarkColorScheme
+        else -> DefaultColorScheme
+    }
+
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = resolvedColorScheme,
         typography = typography,
         shapes = ExpressiveShapes,
         content = content
