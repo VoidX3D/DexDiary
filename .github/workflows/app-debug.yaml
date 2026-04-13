@@ -31,15 +31,13 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.14.3
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Build + unit tests
         run: >
-          gradle :app:assembleDebug :app:testDebugUnitTest
+          ./gradlew :app:assembleDebug :app:testDebugUnitTest
           --no-daemon --stacktrace --parallel --build-cache --configuration-cache
 
       - name: Upload debug APK

@@ -32,6 +32,3 @@ include ':feature-setting:delete-data'
 include ':core-data'
 include ':core-domain'
 include ':feature-shop'
-
-project(":app").projectDir = file("previews/app")
-project(":core-navigation").projectDir = file("previews/core-navigation")
