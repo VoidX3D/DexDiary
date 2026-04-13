@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">DexDiary</string>
     <string name="theme_selection_title">Please select your theme</string>
     <string name="btn_apply">Apply</string>
 </resources>
