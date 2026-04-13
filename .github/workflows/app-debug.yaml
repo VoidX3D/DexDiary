@@ -28,7 +28,11 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 8.7
+          # AGP 7.3.1 in this repository is compatible with Gradle 7.4.x
+          gradle-version: 7.4.2
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Link preview modules expected by settings.gradle
         run: |
