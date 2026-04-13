@@ -54,30 +54,37 @@ class MapSetupViewModel @Inject constructor(
 
     fun onContinueClicked() {
         viewModelScope.launch {
-            val state = _uiState.value
-            val resolvedProvider = if (
-                state.selectedProvider == MapProvider.GOOGLE &&
-                state.userGoogleMapsKey.isBlank()
-            ) {
-                MapProvider.OPEN_STREET_MAP
-            } else {
-                state.selectedProvider
-            }
-
-            preferencesManager.setString(PreferenceKeys.MAP_PROVIDER, resolvedProvider.value)
-            preferencesManager.setString(
-                PreferenceKeys.USER_GOOGLE_MAPS_API_KEY,
-                state.userGoogleMapsKey
-            )
-            preferencesManager.setBoolean(PreferenceKeys.MAPS_SETUP_COMPLETED, true)
-
-            val isFirstEnter = preferencesManager.getBoolean(PreferenceKeys.IS_FIRST_ENTER)
-            if (isFirstEnter) {
-                navigator.navigate(DiaryRoutes.themeRoute) {
-                    popUpTo(DiaryRoutes.mapSetupRoute) { inclusive = true }
-                    launchSingleTop = true
+            runCatching {
+                val state = _uiState.value
+                val resolvedProvider = if (
+                    state.selectedProvider == MapProvider.GOOGLE &&
+                    state.userGoogleMapsKey.isBlank()
+                ) {
+                    MapProvider.OPEN_STREET_MAP
+                } else {
+                    state.selectedProvider
                 }
-            } else {
+
+                preferencesManager.setString(PreferenceKeys.MAP_PROVIDER, resolvedProvider.value)
+                preferencesManager.setString(
+                    PreferenceKeys.USER_GOOGLE_MAPS_API_KEY,
+                    state.userGoogleMapsKey
+                )
+                preferencesManager.setBoolean(PreferenceKeys.MAPS_SETUP_COMPLETED, true)
+
+                val isFirstEnter = preferencesManager.getBoolean(PreferenceKeys.IS_FIRST_ENTER)
+                if (isFirstEnter) {
+                    navigator.navigate(DiaryRoutes.themeRoute) {
+                        popUpTo(DiaryRoutes.mapSetupRoute) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                } else {
+                    navigator.navigate(DiaryRoutes.diaryRoute) {
+                        popUpTo(DiaryRoutes.mapSetupRoute) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            }.onFailure {
                 navigator.navigate(DiaryRoutes.diaryRoute) {
                     popUpTo(DiaryRoutes.mapSetupRoute) { inclusive = true }
                     launchSingleTop = true

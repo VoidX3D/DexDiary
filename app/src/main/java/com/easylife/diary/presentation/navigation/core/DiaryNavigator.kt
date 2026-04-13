@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onSubscription
 import javax.inject.Inject
@@ -81,7 +82,7 @@ abstract class DiaryNavigator : Navigator() {
     }
 
     fun <T> resultFlow(key: String): Flow<T> {
-        val currentBackStackEntry = requireNotNull(navController()?.currentBackStackEntry)
+        val currentBackStackEntry = navController()?.currentBackStackEntry ?: return emptyFlow()
         val savedStateHandle = currentBackStackEntry.savedStateHandle
         return savedStateHandle.getLiveData<T>(key).asFlow().onCompletion {
             savedStateHandle.remove<T>(key)
