@@ -1,5 +1,8 @@
 package com.easylife.diary.feature.shop
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -9,7 +12,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import com.easylife.diary.core.designsystem.motion.adjustedDuration
+import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.core.domain.usecases.BuyItemUseCase
 import com.easylife.diary.core.designsystem.theme.md_theme_primary
@@ -52,6 +58,7 @@ fun ShopContent(
     paddingValues: PaddingValues,
     onBuyItem: (ShopItem, String?) -> Unit
 ) {
+    val reduceMotion = rememberReduceMotionEnabled()
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -73,7 +80,10 @@ fun ShopContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "Streak: ${uiState.currentStreak}", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = "Streak: ${uiState.currentStreak}",
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
@@ -83,7 +93,10 @@ fun ShopContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "PTS: ${uiState.currentPts}", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = "PTS: ${uiState.currentPts}",
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
 
@@ -99,6 +112,7 @@ fun ShopContent(
                 ShopItemCard(
                     item = ShopItem.STREAK_FREEZE,
                     description = "Prevents streak loss for one missed day.",
+                    reduceMotion = reduceMotion,
                     onBuyClick = { onBuyItem(ShopItem.STREAK_FREEZE, null) }
                 )
             }
@@ -106,6 +120,7 @@ fun ShopContent(
                 ShopItemCard(
                     item = ShopItem.DOUBLE_POINTS,
                     description = "Doubles all PTS earned for 24 hours.",
+                    reduceMotion = reduceMotion,
                     onBuyClick = { onBuyItem(ShopItem.DOUBLE_POINTS, null) }
                 )
             }
@@ -118,6 +133,7 @@ fun ShopContent(
                 ShopItemCard(
                     item = ShopItem.DARK_MODE,
                     description = "Unlock the coveted Dark Mode.",
+                    reduceMotion = reduceMotion,
                     onBuyClick = { onBuyItem(ShopItem.DARK_MODE, null) }
                 )
             }
@@ -126,6 +142,7 @@ fun ShopContent(
                     item = ShopItem.PREMIUM_THEME,
                     description = "Unlock a new visual theme.",
                     themeId = "ocean", // Example theme ID
+                    reduceMotion = reduceMotion,
                     onBuyClick = { onBuyItem(ShopItem.PREMIUM_THEME, "ocean") }
                 )
             }
@@ -134,6 +151,7 @@ fun ShopContent(
                     item = ShopItem.PREMIUM_THEME,
                     description = "Unlock another visual theme.",
                     themeId = "forest", // Example theme ID
+                    reduceMotion = reduceMotion,
                     onBuyClick = { onBuyItem(ShopItem.PREMIUM_THEME, "forest") }
                 )
             }
@@ -146,14 +164,24 @@ fun ShopItemCard(
     item: ShopItem,
     description: String,
     themeId: String? = null,
+    reduceMotion: Boolean,
     onBuyClick: () -> Unit
 ) {
+    var pressed by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.97f else 1f,
+        animationSpec = tween(adjustedDuration(180, reduceMotion)),
+        label = "shopCardScale"
+    )
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .scale(scale)
+            .clickable { pressed = !pressed }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = item.name.replace("_", " "), style = MaterialTheme.typography.titleMedium)
@@ -166,7 +194,11 @@ fun ShopItemCard(
             ) {
                 Text(text = "${item.cost} PTS", style = MaterialTheme.typography.titleSmall)
                 Button(
-                    onClick = onBuyClick,
+                    onClick = {
+                        pressed = true
+                        onBuyClick()
+                        pressed = false
+                    },
                     shape = MaterialTheme.shapes.small
                 ) {
                     Text("Buy")
@@ -174,10 +206,4 @@ fun ShopItemCard(
             }
         }
     }
-}
-
-@Composable
-fun rememberPreferencesManager(): PreferencesManager {
-    val context = LocalContext.current
-    return remember { PreferencesManager(context) }
 }

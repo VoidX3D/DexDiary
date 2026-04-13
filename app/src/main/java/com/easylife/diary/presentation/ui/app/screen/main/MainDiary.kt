@@ -1,5 +1,10 @@
 package com.easylife.diary.ui.screen.main
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -14,10 +19,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.easylife.diary.core.designsystem.motion.adjustedDuration
+import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
 import com.easylife.diary.core.navigation.screen.DiaryRoutes.noteRoute
@@ -33,6 +42,17 @@ fun MainDiary(
     navController: NavHostController,
     navigator: DiaryNavigator
 ) {
+    val reduceMotion = rememberReduceMotionEnabled()
+    val transition = rememberInfiniteTransition(label = "fabPulse")
+    val fabScale by transition.animateFloat(
+        initialValue = 1f,
+        targetValue = if (reduceMotion) 1f else 1.06f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(adjustedDuration(900, reduceMotion)),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "fabScale"
+    )
     var currentRoute by remember {
         mutableStateOf(DiaryRoutes.diaryRoute)
     }
@@ -70,6 +90,7 @@ fun MainDiary(
                             onClick = {
                                 navigator.navigate(noteRoute)
                             },
+                            modifier = Modifier.scale(fabScale),
                             containerColor = MaterialTheme.colorScheme.primary,
                             elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
                         ) {

@@ -1,5 +1,8 @@
 package com.easylife.diary.feature.insight
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -8,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.easylife.diary.core.designsystem.motion.adjustedDuration
+import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.feature.insight.components.DiaryAnalyticsView
 import com.easylife.diary.feature.insight.components.DiaryStreakView
@@ -15,6 +20,7 @@ import com.easylife.diary.feature.insight.components.MoodGraph
 import com.easylife.diary.feature.insight.components.TrendsView
 import com.easylife.diary.feature.insight.components.ai.AIOracleSummaryCard
 import com.easylife.diary.feature.insight.components.ai.AIOracleVibeCard
+import androidx.compose.animation.core.tween
 
 /**
  * Created by erenalpaslan on 1.01.2023
@@ -32,6 +38,7 @@ class InsightsScreen : BaseScreen<InsightsViewModel>() {
         uiState: InsightsUiState
     ) {
         val scrollableState = rememberScrollState()
+        val reduceMotion = rememberReduceMotionEnabled()
 
         Scaffold(
             topBar = {
@@ -46,7 +53,14 @@ class InsightsScreen : BaseScreen<InsightsViewModel>() {
                     .verticalScroll(scrollableState)
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
-                DiaryAnalyticsView()
+                AnimatedVisibility(
+                    visible = true,
+                    enter = fadeIn(tween(adjustedDuration(350, reduceMotion))) +
+                        slideInVertically(
+                            initialOffsetY = { if (reduceMotion) 0 else it / 4 },
+                            animationSpec = tween(adjustedDuration(350, reduceMotion))
+                        )
+                ) { DiaryAnalyticsView() }
                 Spacer(modifier = Modifier.height(16.dp))
                 DiaryStreakView(
                     longestChain = uiState.longestChain,

@@ -28,4 +28,5 @@ object PreferenceKeys {
     val DAILY_REMINDER_ENABLED = booleanPreferencesKey("DAILY_REMINDER_ENABLED")
     val STREAK_RISK_WARNING_ENABLED = booleanPreferencesKey("STREAK_RISK_WARNING_ENABLED")
     val AI_VIBE_NOTIFICATION_ENABLED = booleanPreferencesKey("AI_VIBE_NOTIFICATION_ENABLED")
+    val REDUCE_MOTION_ENABLED = booleanPreferencesKey("REDUCE_MOTION_ENABLED")
 }

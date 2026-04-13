@@ -15,10 +15,15 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
+import com.easylife.diary.core.designsystem.motion.MotionPreferences
 import com.easylife.diary.core.navigation.DiaryNavigator
+import com.easylife.diary.core.preferences.PreferenceKeys
+import com.easylife.diary.core.preferences.PreferencesManager
 import com.easylife.diary.ui.screen.main.theme.DiaryTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,10 +34,18 @@ class MainActivity : ComponentActivity() {
     @Inject
     internal lateinit var navigator: DiaryNavigator
 
+    @Inject
+    internal lateinit var preferencesManager: PreferencesManager
+
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestNotificationPermissionIfNeeded()
+        lifecycleScope.launch {
+            MotionPreferences.setReduceMotion(
+                preferencesManager.getBoolean(PreferenceKeys.REDUCE_MOTION_ENABLED, false)
+            )
+        }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             window.setFlags(
