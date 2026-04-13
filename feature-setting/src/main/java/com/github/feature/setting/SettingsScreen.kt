@@ -23,6 +23,7 @@ import com.easylife.diary.core.designsystem.components.NavigationButton
 import com.easylife.diary.core.designsystem.R
 import com.easylife.diary.core.designsystem.components.FeedbackComposable
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
+import com.github.feature.setting.navigation.navigateToNotificationSettings
 import com.github.feature.setting.components.NameDialog
 
 /**
@@ -105,12 +106,11 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                     modifier = Modifier.padding(horizontal = 16.dp),
                     style = MaterialTheme.typography.labelMedium
                 )
+                Divider()
                 NavigationButton(
                     title = "Daily logging reminder",
-                    icon = R.drawable.ic_notification
-                ) {
-
-                }
+                    icon = R.drawable.ic_notification,
+                ) { navigator.navigateToNotificationSettings() }
                 Spacer(modifier = Modifier.height(36.dp))
                 Text(
                     text = "OTHER",

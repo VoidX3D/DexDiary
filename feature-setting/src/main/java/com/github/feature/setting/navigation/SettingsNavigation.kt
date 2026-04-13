@@ -6,9 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import com.easylife.diary.core.navigation.DiaryNavigator
+import com.easylife.diary.core.navigation.screen.DiaryRoutes
 import com.easylife.diary.core.navigation.screen.DiaryRoutes.settingsRoute
 import com.easylife.diary.delete.data.navigation.deleteDataScreen
 import com.easylife.diary.password.navigation.passwordScreen
+import com.github.feature.setting.NotificationSettingsScreen
 import com.github.feature.setting.SettingsScreen
 import com.google.accompanist.navigation.animation.composable
 
@@ -18,6 +20,11 @@ import com.google.accompanist.navigation.animation.composable
 fun NavController.navigateToSettings(navOptions: NavOptions? = null) {
     this.navigate(settingsRoute, navOptions)
 }
+
+fun NavController.navigateToNotificationSettings() {
+    this.navigate(DiaryRoutes.notificationSettingsRoute)
+}
+
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.settingsScreen(
@@ -31,4 +38,10 @@ fun NavGraphBuilder.settingsScreen(
     }
     passwordScreen(navigator)
     deleteDataScreen(navigator)
+    composable(route = DiaryRoutes.notificationSettingsRoute) {
+        NotificationSettingsScreen().Create(
+            navigator = navigator,
+            viewModel = hiltViewModel()
+        )
+    }
 }

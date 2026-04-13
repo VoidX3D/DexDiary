@@ -3,7 +3,7 @@ package com.easylife.diary.ui.screen.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.easylife.diary.core.designsystem.base.BaseViewModel
-import com.easylife.diary.core.preferences.PreferencesKeys
+import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
 import com.easylife.diary.feature.theme.util.DiaryTheme
 import com.easylife.diary.feature.theme.util.DiaryThemeObservable
@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val selectedThemeId = preferencesManager.getInt(PreferencesKeys.SELECTED_THEME_ID, 1)
+            val selectedThemeId = preferencesManager.getInt(PreferenceKeys.SELECTED_THEME_ID, 1)
             val selectedTheme = Themes.from(selectedThemeId)
             diaryThemeObservable.postValue(selectedTheme)
         }

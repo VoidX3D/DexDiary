@@ -5,6 +5,9 @@ import com.easylife.diary.core.common.util.DiaryResult
 import com.easylife.diary.core.common.util.dispatchers.DiaryDispatchers
 import com.easylife.diary.core.data.repository.EntryRepository
 import com.easylife.diary.core.model.DiaryNote
+import com.easylife.diary.core.preferences.PreferenceKeys
+import com.easylife.diary.core.preferences.PreferencesManager
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -17,7 +20,8 @@ class AddEntryUseCase @Inject constructor(
     private val dispatchers: DiaryDispatchers,
     private val entryRepository: EntryRepository,
     private val updateStreakUseCase: UpdateStreakUseCase,
-    private val calculateEntryPtsUseCase: CalculateEntryPtsUseCase
+    private val calculateEntryPtsUseCase: CalculateEntryPtsUseCase,
+    private val preferencesManager: PreferencesManager
 ): BaseUseCase<Int, AddEntryUseCase.Params>() {
 
     data class Params(
@@ -30,7 +34,12 @@ class AddEntryUseCase @Inject constructor(
 
     override suspend fun execute(params: Params): Flow<DiaryResult<Int>> = flow {
         try {
-            // 1. Golden Rule Check: Only current date allowed
+            // Golden rule: one entry per current day.
+            if (entryRepository.hasEntryForGivenLocalDate(LocalDate.now())) {
+                emit(DiaryResult.Error("Today's entry already exists. Edit it instead of creating a new one."))
+                return@flow
+            }
+
             val diaryDate = DateUtil.getCurrentDiaryDate()
             
             // 2. Calculate Metadata
@@ -42,6 +51,8 @@ class AddEntryUseCase @Inject constructor(
 
             // 4. Calculate & Award PTS
             val awardedPts = calculateEntryPtsUseCase.execute(wordCount, params.mediaPaths.isNotEmpty())
+            val totalWords = preferencesManager.getInt(PreferenceKeys.TOTAL_WORDS_WRITTEN, 0)
+            preferencesManager.setInt(PreferenceKeys.TOTAL_WORDS_WRITTEN, totalWords + wordCount)
 
             // 5. Save Entry
             val entry = DiaryNote(

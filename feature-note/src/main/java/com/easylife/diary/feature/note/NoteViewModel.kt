@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.easylife.diary.core.common.util.DateUtil
 import com.easylife.diary.core.common.util.DateUtil.formattedDate
+import com.easylife.diary.core.common.util.DiaryResult
 import com.easylife.diary.core.designsystem.base.BaseViewModel
 import com.easylife.diary.core.domain.usecases.AddEntryUseCase
 import com.easylife.diary.core.domain.usecases.DeleteEntryUseCase
@@ -99,12 +100,14 @@ class NoteViewModel @Inject constructor(
                 tags = _uiState.value.tags,
                 mediaPaths = _uiState.value.mediaPaths
             )).collect { result ->
-                // TODO: Show PTS awarded animation/toast
+                when (result) {
+                    is DiaryResult.Error -> _error.postValue(result.message)
+                    is DiaryResult.Success -> navigator.navigateBackWithResult(
+                        key = DiaryArgs.ENTRY_AFFECTED,
+                        result = true
+                    )
+                }
             }
-            navigator.navigateBackWithResult(
-                key = DiaryArgs.ENTRY_AFFECTED,
-                result = true
-            )
             hideProgress()
         }
     }

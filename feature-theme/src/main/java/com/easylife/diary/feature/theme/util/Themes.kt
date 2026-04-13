@@ -2,17 +2,19 @@ package com.easylife.diary.feature.theme.util
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 import com.easylife.diary.core.designsystem.theme.DefaultColorScheme
 import com.easylife.diary.core.designsystem.theme.DefaultTypography
-import com.easylife.diary.core.designsystem.theme.americanPink
-import com.easylife.diary.core.designsystem.theme.black
-import com.easylife.diary.core.designsystem.theme.blue
-import com.easylife.diary.core.designsystem.theme.lightRed
-import com.easylife.diary.core.designsystem.theme.mistyRose
-import com.easylife.diary.core.designsystem.theme.oldLace
-import com.easylife.diary.core.designsystem.theme.outerSpace
-import com.easylife.diary.core.designsystem.theme.pearl
-import com.easylife.diary.core.designsystem.theme.white
+import com.easylife.diary.core.designsystem.theme.blue_theme_primary
+import com.easylife.diary.core.designsystem.theme.blue_theme_secondary
+import com.easylife.diary.core.designsystem.theme.blue_theme_tertiary
+import com.easylife.diary.core.designsystem.theme.md_theme_background
+import com.easylife.diary.core.designsystem.theme.red_theme_primary
+import com.easylife.diary.core.designsystem.theme.red_theme_secondary
+import com.easylife.diary.core.designsystem.theme.red_theme_tertiary
+import com.easylife.diary.core.designsystem.theme.yellow_theme_primary
+import com.easylife.diary.core.designsystem.theme.yellow_theme_secondary
+import com.easylife.diary.core.designsystem.theme.yellow_theme_tertiary
 
 /**
  * Created by erenalpaslan on 25.12.2022
@@ -24,7 +26,7 @@ enum class Themes(val diaryTheme: DiaryTheme) {
             name = "Honey Theme",
             colorScheme = DefaultColorScheme,
             typography = DefaultTypography,
-            parentBackgroundColor = pearl
+            parentBackgroundColor = md_theme_background
         )
     ),
     DARK(
@@ -32,28 +34,41 @@ enum class Themes(val diaryTheme: DiaryTheme) {
             id = 2,
             name = "Dark Theme",
             colorScheme = darkColorScheme(
-                primary = blue,
-                onPrimary = white,
+                primary = blue_theme_primary,
+                secondary = blue_theme_secondary,
+                tertiary = blue_theme_tertiary
             ),
             typography = DefaultTypography,
-            parentBackgroundColor = outerSpace
+            parentBackgroundColor = Color(0xFF121212),
+            isPremium = true
         )
     ),
     PINK(
         DiaryTheme(
             id = 3,
-            name = "Pink Theme",
+            name = "Sunset Theme",
             colorScheme = lightColorScheme(
-                primary = oldLace,
-                onPrimary = black,
-                background = lightRed,
-                onBackground = black,
-                surface = americanPink,
-                surfaceVariant = mistyRose,
-                onSurfaceVariant = white
+                primary = red_theme_primary,
+                secondary = red_theme_secondary,
+                tertiary = red_theme_tertiary
             ),
             typography = DefaultTypography,
-            parentBackgroundColor = americanPink
+            parentBackgroundColor = Color(0xFFFFF8F6),
+            isPremium = true
+        )
+    ),
+    GOLD(
+        DiaryTheme(
+            id = 4,
+            name = "Gold Theme",
+            colorScheme = lightColorScheme(
+                primary = yellow_theme_primary,
+                secondary = yellow_theme_secondary,
+                tertiary = yellow_theme_tertiary
+            ),
+            typography = DefaultTypography,
+            parentBackgroundColor = Color(0xFFFFF9EE),
+            isPremium = true
         )
     );
 

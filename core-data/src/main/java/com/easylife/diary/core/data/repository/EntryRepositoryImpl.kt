@@ -1,10 +1,7 @@
 package com.easylife.diary.core.data.repository
 
-import com.easylife.diary.core.common.util.DateUtil
 import com.easylife.diary.core.data.room.dao.EntryDao
 import com.easylife.diary.core.model.DiaryNote
-import com.easylife.diary.core.preferences.PreferencesKeys
-import com.easylife.diary.core.preferences.PreferencesManager
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -14,8 +11,7 @@ import javax.inject.Inject
  * Created by erenalpaslan on 9.01.2023
  */
 class EntryRepositoryImpl @Inject constructor(
-    private val entryDao: EntryDao,
-    private val preferencesManager: PreferencesManager
+    private val entryDao: EntryDao
 ): EntryRepository {
 
     override suspend fun addEntry(entry: DiaryNote) {

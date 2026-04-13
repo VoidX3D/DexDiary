@@ -1,22 +1,13 @@
 package com.easylife.diary.core.designsystem.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.unit.dp
 
 val DefaultColorScheme = lightColorScheme(
     primary = md_theme_primary,
@@ -41,3 +32,25 @@ val DefaultColorScheme = lightColorScheme(
     onSurfaceVariant = md_theme_onSurfaceVariant,
     outline = md_theme_outline
 )
+
+val ExpressiveShapes = Shapes(
+    extraSmall = RoundedCornerShape(8.dp),
+    small = RoundedCornerShape(12.dp),
+    medium = RoundedCornerShape(16.dp),
+    large = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(28.dp)
+)
+
+@Composable
+fun AppDiaryTheme(
+    colorScheme: ColorScheme = DefaultColorScheme,
+    typography: Typography = DefaultTypography,
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = typography,
+        shapes = ExpressiveShapes,
+        content = content
+    )
+}

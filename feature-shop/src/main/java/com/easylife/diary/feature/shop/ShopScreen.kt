@@ -2,7 +2,6 @@ package com.easylife.diary.feature.shop
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AcUnit // Placeholder for streak icon
 import androidx.compose.material.icons.rounded.Diamond
@@ -10,19 +9,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.easylife.diary.core.designsystem.base.BaseScreen
+import com.easylife.diary.core.domain.usecases.BuyItemUseCase
 import com.easylife.diary.core.designsystem.theme.md_theme_primary
 import com.easylife.diary.core.designsystem.theme.md_theme_secondary
-import com.easylife.diary.core.preferences.PreferenceKeys
-import com.easylife.diary.core.preferences.PreferencesManager
-import com.easylife.diary.feature.shop.BuyItemUseCase.ShopItem
-import com.easylife.diary.R // Assuming R.drawable.ic_fire and R.drawable.ic_gem exist
-import kotlinx.coroutines.launch
+import com.easylife.diary.core.domain.usecases.BuyItemUseCase.ShopItem
 
 /**
  * Created by erenalpaslan on 14.04.2026
@@ -31,8 +23,6 @@ class ShopScreen : BaseScreen<ShopViewModel>() {
     @Composable
     override fun Screen() {
         val uiState by viewModel.uiState.collectAsState()
-        val preferencesManager = remember { PreferencesManager(LocalContext.current) }
-        val coroutineScope = rememberCoroutineScope()
 
         Scaffold(
             topBar = {
@@ -49,11 +39,8 @@ class ShopScreen : BaseScreen<ShopViewModel>() {
                 uiState = uiState,
                 paddingValues = paddingValues,
                 onBuyItem = { item, themeId ->
-                    coroutineScope.launch {
-                        viewModel.buyItem(item, themeId)
-                    }
-                },
-                preferencesManager = preferencesManager // Pass preferencesManager
+                    viewModel.buyItem(item, themeId)
+                }
             )
         }
     }
@@ -63,16 +50,8 @@ class ShopScreen : BaseScreen<ShopViewModel>() {
 fun ShopContent(
     uiState: ShopUiState,
     paddingValues: PaddingValues,
-    onBuyItem: (ShopItem, String?) -> Unit,
-    preferencesManager: PreferencesManager // Receive preferencesManager
+    onBuyItem: (ShopItem, String?) -> Unit
 ) {
-    val currentStreak by remember {
-        mutableStateOf(preferencesManager.getInt(PreferenceKeys.CURRENT_STREAK, 0))
-    }
-    val currentPts by remember {
-        mutableStateOf(preferencesManager.getInt(PreferenceKeys.PTS, 0))
-    }
-
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -94,7 +73,7 @@ fun ShopContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "Streak: $currentStreak", style = MaterialTheme.typography.titleMedium)
+                Text(text = "Streak: ${uiState.currentStreak}", style = MaterialTheme.typography.titleMedium)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
@@ -104,7 +83,7 @@ fun ShopContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "PTS: $currentPts", style = MaterialTheme.typography.titleMedium)
+                Text(text = "PTS: ${uiState.currentPts}", style = MaterialTheme.typography.titleMedium)
             }
         }
 

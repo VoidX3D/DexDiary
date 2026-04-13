@@ -5,7 +5,7 @@ import com.easylife.diary.core.designsystem.base.BaseViewModel
 import com.easylife.diary.core.navigation.DiaryComposeNavigator
 import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
-import com.easylife.diary.core.preferences.PreferencesKeys
+import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val shouldShowThemeSelection: Flow<Boolean> = flow {
-        emit(preferencesManager.getBoolean(PreferencesKeys.IS_FIRST_ENTER))
+        emit(preferencesManager.getBoolean(PreferenceKeys.IS_FIRST_ENTER))
     }
 
     init {

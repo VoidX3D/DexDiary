@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.easylife.diary.core.common.util.DiaryResult
 import com.easylife.diary.core.designsystem.base.BaseViewModel
 import com.easylife.diary.core.domain.usecases.GetWeekDataUseCase
-import com.easylife.diary.core.preferences.PreferencesKeys
+import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +38,7 @@ class InsightsViewModel @Inject constructor(
                 is DiaryResult.Success -> _uiState.update {
                     it.copy(
                         streakData = result.data ?: emptyList(),
-                        longestChain = preferencesManager.getInt(PreferencesKeys.LONGEST_CHAIN, 0)
+                        longestChain = preferencesManager.getInt(PreferenceKeys.LONGEST_CHAIN, 0)
                     )
                 }
             }

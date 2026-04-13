@@ -13,4 +13,5 @@ object DiaryRoutes {
     const val diaryRoute = "diary_route"
     const val passwordRoute = "password_route"
     const val deleteDataRoute = "delete_route"
+    const val notificationSettingsRoute = "notification_settings_route"
 }

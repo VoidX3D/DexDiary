@@ -24,14 +24,6 @@ class UseCaseModule {
     }
 
     @Provides
-    fun providesAddEntryUseCase(
-        dispatchers: DiaryDispatchers,
-        entryRepository: EntryRepository
-    ): AddEntryUseCase {
-        return AddEntryUseCase(dispatchers, entryRepository)
-    }
-
-    @Provides
     fun providesEditEntryUseCase(
         dispatchers: DiaryDispatchers,
         entryRepository: EntryRepository

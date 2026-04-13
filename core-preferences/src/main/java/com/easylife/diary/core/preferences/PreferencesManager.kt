@@ -14,7 +14,7 @@ class PreferencesManager(private val context: Context) {
 
     companion object {
         private val Context.dataStore by preferencesDataStore(
-            name = PreferencesKeys.PREFERENCES_NAME
+            name = PreferenceKeys.PREFERENCES_NAME
         )
     }
 
