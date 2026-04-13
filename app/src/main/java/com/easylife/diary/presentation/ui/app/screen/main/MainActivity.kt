@@ -86,17 +86,23 @@ class MainActivity : ComponentActivity() {
                     navigator = navigator
                 )
                 crashReport?.let { report ->
+                    val fullReport = report.toPrettyString()
+                    val preview = if (fullReport.length > 1200) {
+                        fullReport.take(1200) + "\n\n...truncated in dialog for performance..."
+                    } else {
+                        fullReport
+                    }
                     AlertDialog(
                         onDismissRequest = {},
                         title = { Text("Previous crash detected") },
                         text = {
                             Column {
-                                Text(report.toPrettyString())
+                                Text(preview)
                                 Row {
                                     TextButton(onClick = {
                                         val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                             type = "text/plain"
-                                            putExtra(Intent.EXTRA_TEXT, report.toPrettyString())
+                                            putExtra(Intent.EXTRA_TEXT, fullReport)
                                         }
                                         startActivity(Intent.createChooser(shareIntent, "Share crash report"))
                                     }) { Text("Share manually") }
@@ -114,7 +120,7 @@ class MainActivity : ComponentActivity() {
                             TextButton(onClick = {
                                 val clipboard = getSystemService(ClipboardManager::class.java)
                                 clipboard?.setPrimaryClip(
-                                    ClipData.newPlainText("DexDiary Crash", report.toPrettyString())
+                                    ClipData.newPlainText("DexDiary Crash", fullReport)
                                 )
                             }) {
                                 Text("Copy report")
