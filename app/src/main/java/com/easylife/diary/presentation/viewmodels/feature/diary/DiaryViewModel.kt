@@ -53,9 +53,10 @@ class DiaryViewModel @Inject constructor(
                         if (result.data.isNullOrEmpty()) {
                             DiaryUiState.EmptyDiary
                         }else {
+                            val entries = result.data
                             DiaryUiState.DataLoaded(
-                                data = result.data ?: emptyList(),
-                                rawData = result.data ?: emptyList(),
+                                data = entries,
+                                rawData = entries,
                                 streak = streak,
                                 pts = pts
                             )

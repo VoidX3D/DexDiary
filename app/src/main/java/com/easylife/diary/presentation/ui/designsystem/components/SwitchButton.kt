@@ -38,7 +38,7 @@ fun SwitchButton(
             })
         if (!description.isNullOrEmpty()) {
             Text(
-                text = description ?: "",
+                text = description,
                 modifier = Modifier.constrainAs(descriptionRef) {
                     top.linkTo(titleRef.bottom, 4.dp)
                     start.linkTo(parent.start)

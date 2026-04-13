@@ -8,7 +8,6 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -16,12 +15,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.rememberNavController
 import com.easylife.diary.core.designsystem.motion.MotionPreferences
 import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
 import com.easylife.diary.ui.screen.main.theme.DiaryTheme
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +36,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     internal lateinit var preferencesManager: PreferencesManager
 
-    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestNotificationPermissionIfNeeded()
@@ -52,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
-            val navHost = rememberAnimatedNavController()
+            val navHost = rememberNavController()
             val selectedTheme by viewModel.theme.observeAsState()
 
             LaunchedEffect(Unit) {

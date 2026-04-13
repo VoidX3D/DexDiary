@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,11 +76,11 @@ fun EntryGroupItem(
                         onItemClicked(entry)
                     }
                     if (item.list.lastIndex != index) {
-                        Divider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp, end = 8.dp))
+                        HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp, end = 8.dp))
                     }
                 }
             }
         }
-        Divider(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp))
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp))
     }
 }

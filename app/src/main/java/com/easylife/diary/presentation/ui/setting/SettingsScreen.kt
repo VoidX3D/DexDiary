@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -78,21 +78,21 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                 ) {
                     showNameDialog = true
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Password (PIN)",
                     icon = R.drawable.ic_lock
                 ) {
                     navigator.navigate(DiaryRoutes.passwordRoute)
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Themes",
                     icon = R.drawable.ic_theme
                 ) {
                     viewModel.onThemeButtonClicked()
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationToggleItem(
                     title = "Reduce Motion",
                     checked = reduceMotion,
@@ -110,7 +110,7 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                 ) {
 
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Delete app data",
                     icon = R.drawable.ic_trash
@@ -123,7 +123,7 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                     modifier = Modifier.padding(horizontal = 16.dp),
                     style = MaterialTheme.typography.labelMedium
                 )
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Daily logging reminder",
                     icon = R.drawable.ic_notification,
@@ -140,21 +140,21 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                 ) {
                     //ShareAppHelper.openShareApp(activity)
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Help and Feedback",
                     icon = R.drawable.ic_help
                 ) {
                     showFeedback = true
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Remove ads",
                     icon = R.drawable.ic_remove_ad
                 ) {
 
                 }
-                Divider()
+                HorizontalDivider()
                 NavigationButton(
                     title = "Rate app",
                     icon = R.drawable.ic_star

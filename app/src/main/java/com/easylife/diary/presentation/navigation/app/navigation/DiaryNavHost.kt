@@ -1,6 +1,5 @@
 package com.easylife.diary.ui.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.core.navigation.screen.DiaryRoutes.splashRoute
 import com.easylife.diary.feature.calendar.navigation.calendarScreen
@@ -24,16 +24,13 @@ import com.easylife.diary.feature.splash.navigation.splashScreen
 import com.easylife.diary.feature.theme.navigation.themeScreen
 import com.easylife.diary.feature.shop.navigation.shopScreen
 import com.easylife.diary.presentation.ui.setting.navigation.settingsScreen
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DiaryNavHost(
     navigator: DiaryNavigator,
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
-    AnimatedNavHost(
+    NavHost(
         navController = navController,
         startDestination = splashRoute,
         modifier = Modifier.padding(

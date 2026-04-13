@@ -23,7 +23,7 @@ import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -102,7 +102,7 @@ class NoteScreen : BaseScreen<NoteViewModel>() {
             bottomBar = {
                 if (uiState.isEditable) {
                     Column(modifier = Modifier.fillMaxWidth()) {
-                        Divider()
+                        HorizontalDivider()
                         Spacer(modifier = Modifier.height(10.dp))
                         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                             OutlinedIconButton(
@@ -166,7 +166,7 @@ class NoteScreen : BaseScreen<NoteViewModel>() {
                     width = Dimension.fillToConstraints
                     height = Dimension.fillToConstraints
                 }) {
-                    Divider()
+                    HorizontalDivider()
                     AnimatedVisibility(
                         visible = uiState.mood != null,
                         enter = fadeIn(tween(adjustedDuration(260, reduceMotion))),

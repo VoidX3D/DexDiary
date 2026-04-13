@@ -2,7 +2,7 @@ package com.easylife.diary.presentation.ui.setting
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +23,7 @@ class NotificationSettingsScreen : BaseScreen<NotificationSettingsViewModel>() {
                     title = { Text("Notification Settings") },
                     navigationIcon = {
                         IconButton(onClick = { navigator.popBackStack() }) {
-                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -49,7 +49,7 @@ class NotificationSettingsScreen : BaseScreen<NotificationSettingsViewModel>() {
                     isChecked = viewModel.isDailyReminderEnabled.collectAsState().value,
                     onCheckedChange = { isChecked -> viewModel.setDailyReminderEnabled(isChecked) }
                 )
-                Divider()
+                HorizontalDivider()
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Example: Streak risk warning toggle
@@ -59,7 +59,7 @@ class NotificationSettingsScreen : BaseScreen<NotificationSettingsViewModel>() {
                     isChecked = viewModel.isStreakRiskWarningEnabled.collectAsState().value,
                     onCheckedChange = { isChecked -> viewModel.setStreakRiskWarningEnabled(isChecked) }
                 )
-                Divider()
+                HorizontalDivider()
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Example: AI Oracle Vibe Notification toggle

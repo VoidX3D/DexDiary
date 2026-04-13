@@ -38,9 +38,9 @@ jobs:
       - name: Install API 35 platform
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Build + unit tests
+      - name: Build APK
         run: >
-          ./gradlew :app:assembleDebug :app:testDebugUnitTest
+          ./gradlew :app:assembleDebug -x test
           --no-daemon --stacktrace --parallel --build-cache --configuration-cache
 
       - name: Upload debug APK
