@@ -4,6 +4,12 @@ This document defines the core engine for Dex Diary. Use this as the "Source of 
 
 ---
 
+## 0. Build + Environment Rules
+*   **OS Baseline**: Assume Ubuntu/Linux environment.
+*   **CI-First Validation**: Prefer GitHub Actions as the canonical build/test execution path.
+*   **No Windows Assumptions**: Avoid Windows-only scripts and instructions.
+*   **Open Source Requirement**: Keep project documentation/license files accurate and present (`README.md`, `LICENSE`, and third-party notices).
+
 ## 1. The Diary Entry Logic (The Golden Rule)
 *   **Temporal Constraint**: Users can ONLY write or edit the entry for the current calendar day (`YYYY-MM-DD`). 
 *   **Zero-Edit History**: Once a day passes, the entry for that day is locked. This creates "High Stakes" journaling—if you don't capture the thought today, it is lost to time.

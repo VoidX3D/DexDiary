@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.easylife.diary"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.easylife.diary"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "0.0.1"
 

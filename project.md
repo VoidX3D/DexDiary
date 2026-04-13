@@ -1,5 +1,19 @@
-# Dex Diary: The Digital Sanctum
+# DexDiary Project Definition
 
-Dex Diary is an immersive, privacy-first journal designed to turn self-reflection into a high-stakes, addictive game. It is a digital sanctuary that demands consistency, rewarding users not with mindless scrolling, but with deep insights and hard-earned aesthetic progression.
+DexDiary is a free, open-source Android journaling app built around consistency, reflection, and game-style progression.
 
-In this space, your words are your currency. The act of writing is refined into a ritual—a daily challenge where your presence is required, and your absence is felt. By blending accountability, AI-driven foresight, and a rigorous, gamified rewards system, Dex Diary transforms the mundane task of journaling into a pursuit of personal evolution. It is a quiet, powerful companion, meticulously crafted for those who value their growth as much as their privacy.
+## Platform & Build Constraints
+
+- Primary dev environment: Ubuntu (Linux)
+- No Windows-specific build assumptions
+- Validation source of truth: GitHub Actions CI only
+- Required CI checks:
+  - `:app:assembleDebug`
+  - `:app:testDebugUnitTest`
+
+## Product Direction
+
+- Keep the app daily-use friendly and privacy-first
+- Preserve the gamified loop (streaks, points, shop, achievements)
+- Keep architecture unified under `app/src/main/java/com/easylife/diary/{di,data,domain,presentation}`
+- Maintain accessible UI (including Reduce Motion behavior)

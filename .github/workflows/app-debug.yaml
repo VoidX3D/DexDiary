@@ -35,6 +35,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Install API 35 platform
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
       - name: Build + unit tests
         run: >
           ./gradlew :app:assembleDebug :app:testDebugUnitTest
