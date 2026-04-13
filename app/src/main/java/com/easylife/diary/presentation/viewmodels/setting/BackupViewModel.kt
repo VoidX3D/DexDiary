@@ -10,10 +10,12 @@ import com.easylife.diary.domain.backup.BackupCrypto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
@@ -60,18 +62,22 @@ class BackupViewModel @Inject constructor(
     fun prepareExport() {
         viewModelScope.launch {
             runCatching {
-                val entries = entryRepository.getAllEntries()
-                val text = when (_uiState.value.selectedFormat) {
-                    "csv" -> toCsv(entries)
-                    "md" -> toMarkdown(entries)
-                    else -> gson.toJson(entries)
-                }
-                var bytes = text.toByteArray(StandardCharsets.UTF_8)
-                if (_uiState.value.encryptionEnabled && _uiState.value.password.isNotBlank()) {
-                    bytes = BackupCrypto.encrypt(bytes, _uiState.value.password)
+                val state = _uiState.value
+                val bytes = withContext(Dispatchers.IO) {
+                    val entries = entryRepository.getAllEntries()
+                    val text = when (state.selectedFormat) {
+                        "csv" -> toCsv(entries)
+                        "md" -> toMarkdown(entries)
+                        else -> gson.toJson(entries)
+                    }
+                    var raw = text.toByteArray(StandardCharsets.UTF_8)
+                    if (state.encryptionEnabled && state.password.isNotBlank()) {
+                        raw = BackupCrypto.encrypt(raw, state.password)
+                    }
+                    _uiState.value = _uiState.value.copy(status = "Export prepared (${entries.size} entries)")
+                    raw
                 }
                 _uiState.value = _uiState.value.copy(
-                    status = "Export prepared (${entries.size} entries)",
                     lastPayload = bytes
                 )
             }.onFailure {
@@ -89,17 +95,21 @@ class BackupViewModel @Inject constructor(
     fun importFromRaw(raw: ByteArray) {
         viewModelScope.launch {
             runCatching {
-                val input = if (_uiState.value.encryptionEnabled && _uiState.value.password.isNotBlank()) {
-                    BackupCrypto.decrypt(raw, _uiState.value.password)
-                } else {
-                    raw
+                val importedCount = withContext(Dispatchers.IO) {
+                    val state = _uiState.value
+                    val input = if (state.encryptionEnabled && state.password.isNotBlank()) {
+                        BackupCrypto.decrypt(raw, state.password)
+                    } else {
+                        raw
+                    }
+                    val text = input.toString(StandardCharsets.UTF_8)
+                    val type = object : TypeToken<List<DiaryNote>>() {}.type
+                    val imported: List<DiaryNote> = gson.fromJson(text, type) ?: emptyList()
+                    entryRepository.deleteAllEntries()
+                    entryRepository.addEntries(imported.map { it.copy(id = 0) })
+                    imported.size
                 }
-                val text = input.toString(StandardCharsets.UTF_8)
-                val type = object : TypeToken<List<DiaryNote>>() {}.type
-                val imported: List<DiaryNote> = gson.fromJson(text, type) ?: emptyList()
-                entryRepository.deleteAllEntries()
-                entryRepository.addEntries(imported.map { it.copy(id = 0) })
-                _uiState.value = _uiState.value.copy(status = "Import successful (${imported.size} entries)")
+                _uiState.value = _uiState.value.copy(status = "Import successful ($importedCount entries)")
             }.onFailure {
                 _uiState.value = _uiState.value.copy(status = "Import failed: ${it.message}")
             }
@@ -131,7 +141,7 @@ class BackupViewModel @Inject constructor(
             entries.forEach { note ->
                 appendLine("## ${note.title ?: "Untitled"}")
                 appendLine("- Mood: ${note.moodId ?: "N/A"}")
-                appendLine("- Date: ${note.date?.dayName ?: ""} ${note.date?.dayOfMonth ?: ""} ${note.date?.year ?: ""}")
+                appendLine("- Date: ${note.date?.shortMonth ?: ""} ${note.date?.dayOfMonth ?: ""} ${note.date?.year ?: ""}")
                 appendLine()
                 appendLine(note.description.orEmpty())
                 appendLine()

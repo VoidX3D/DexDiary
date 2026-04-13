@@ -8,11 +8,17 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HttpAiClient @Inject constructor() : AiClient {
     private val jsonType = "application/json".toMediaType()
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .callTimeout(40, TimeUnit.SECONDS)
+        .build()
 
     override suspend fun runPrompt(provider: AiProvider, apiKey: String, prompt: String): String {
         if (apiKey.isBlank()) return "Add API key in Settings"

@@ -12,7 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 /**
@@ -57,7 +57,8 @@ class DataModule {
             )
                 .addTypeConverter(diaryDateTypeConverter)
                 .addTypeConverter(listTypeConverter)
-                .setQueryCoroutineContext(Dispatchers.IO)
+                .setQueryExecutor(Executors.newSingleThreadExecutor())
+                .setTransactionExecutor(Executors.newSingleThreadExecutor())
                 .fallbackToDestructiveMigration()
                 .build()
         }.getOrElse {

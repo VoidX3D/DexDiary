@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.easylife.diary.core.designsystem.motion.adjustedDuration
 import com.easylife.diary.core.designsystem.motion.rememberReduceMotionEnabled
 import com.easylife.diary.core.navigation.DiaryNavigator
@@ -53,15 +54,13 @@ fun MainDiary(
         ),
         label = "fabScale"
     )
-    var currentRoute by remember {
-        mutableStateOf(DiaryRoutes.diaryRoute)
-    }
-
     val navigateToBottomTabs: (String) -> Unit = {
         navController.navigate(it) {
-            popUpTo(currentRoute) {
-                inclusive = true
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
             }
+            launchSingleTop = true
+            restoreState = true
         }
     }
 
@@ -77,7 +76,6 @@ fun MainDiary(
                                 selected =  currentDestination?.hierarchy?.any { it.route == bottomNavScreen.route } == true,
                                 onClick = {
                                     navigateToBottomTabs(bottomNavScreen.route)
-                                    currentRoute = bottomNavScreen.route
                                 },
                                 icon = bottomNavScreen.icon,
                                 selectedIcon = bottomNavScreen.selectedIcon,
