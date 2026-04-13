@@ -8,8 +8,6 @@ import com.easylife.diary.core.common.util.DiaryResult
 import com.easylife.diary.core.domain.usecases.GetDatePointListByLocalDateUseCase
 import com.easylife.diary.core.domain.usecases.GetDateUseCase
 import com.easylife.diary.core.model.calendar.DatePoint
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -32,9 +30,6 @@ class CalendarViewModel @Inject constructor(
 
     private val _calendarState: MutableStateFlow<CalendarState> = MutableStateFlow(CalendarState())
     val calendarState = _calendarState.asStateFlow()
-
-    @OptIn(ExperimentalPagerApi::class)
-    val pagerState: PagerState = PagerState(1)
 
     private val TAG = "CalendarControl"
 
@@ -94,7 +89,6 @@ class CalendarViewModel @Inject constructor(
         return list
     }
 
-    @OptIn(ExperimentalPagerApi::class)
     fun onPageChanged(page: Int) {
         if (_calendarState.value.pages.isNotEmpty()) {
             viewModelScope.launch {
@@ -121,7 +115,6 @@ class CalendarViewModel @Inject constructor(
                             )
                         }
                     }
-                    pagerState.scrollToPage(if (page == 0) 1 else page)
                 }else if (page > _calendarState.value.page) {
                     val nextLocalDate = date.plusMonths(1)
                     _calendarState.value.pages.firstOrNull { it.first == nextLocalDate.toString() }?.let {
@@ -144,7 +137,6 @@ class CalendarViewModel @Inject constructor(
                             )
                         }
                     }
-                    pagerState.scrollToPage(page)
                 }
             }
         }

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Button
@@ -29,9 +31,6 @@ import com.easylife.diary.core.designsystem.base.BaseScreen
 import com.easylife.diary.core.navigation.screen.DiaryRoutes
 import com.easylife.diary.feature.theme.util.DiaryTheme
 import com.easylife.diary.feature.theme.component.ThemeItem
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
 
 /**
  * Created by erenalpaslan on 19.12.2022
@@ -43,12 +42,11 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
         ThemeContent(themeUiState = themeUiState)
     }
 
-    @OptIn(ExperimentalPagerApi::class)
     @Composable
     fun ThemeContent(
         themeUiState: ThemeUiState,
     ) {
-        val pagerState = rememberPagerState()
+        val pagerState = rememberPagerState { (themeUiState as? ThemeUiState.Success)?.diaryThemes?.size ?: 0 }
         var currentDiaryTheme by remember {
             mutableStateOf<DiaryTheme?>(null)
         }
@@ -80,10 +78,9 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
                             color = currentDiaryTheme?.colorScheme?.onPrimary
                                 ?: MaterialTheme.colorScheme.onPrimary
                         )
-                        HorizontalPager(count = themeUiState.diaryThemes.size,
+                        HorizontalPager(
                             state = pagerState,
                             key = { page -> page },
-                            itemSpacing = 16.dp,
                             contentPadding = PaddingValues(vertical = 54.dp, horizontal = 54.dp),
                             modifier = Modifier.constrainAs(themePagerRef) {
                                 top.linkTo(titleRef.bottom, 32.dp)
@@ -94,7 +91,9 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
                             }
                         ) { page ->
                             ThemeItem(
-                                diaryTheme = themeUiState.diaryThemes[page], page = page
+                                diaryTheme = themeUiState.diaryThemes[page],
+                                page = page,
+                                pagerState = pagerState
                             )
                             currentDiaryTheme = themeUiState.diaryThemes[pagerState.currentPage]
                         }

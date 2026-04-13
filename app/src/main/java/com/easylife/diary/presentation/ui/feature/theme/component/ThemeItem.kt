@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -33,19 +34,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.easylife.diary.R
 import com.easylife.diary.feature.theme.util.DiaryTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerScope
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
 /**
  * Created by erenalpaslan on 24.12.2022
  */
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerScope.ThemeItem(
+fun ThemeItem(
     diaryTheme: DiaryTheme,
-    page: Int
+    page: Int,
+    pagerState: PagerState
 ) {
     Scaffold(
         containerColor = diaryTheme.colorScheme.background,
@@ -56,7 +54,8 @@ fun PagerScope.ThemeItem(
                 // Calculate the absolute offset for the current page from the
                 // scroll position. We use the absolute value which allows us to mirror
                 // any effects for both directions
-                val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                val pageOffset =
+                    ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
 
                 lerp(
                     start = 0.80f,

@@ -2,6 +2,9 @@ package com.easylife.diary.core.designsystem.components.calendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,16 +38,11 @@ import com.easylife.diary.core.designsystem.theme.black
 import com.easylife.diary.core.designsystem.theme.gray
 import com.easylife.diary.core.designsystem.theme.green
 import com.easylife.diary.core.model.calendar.DatePoint
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import java.time.LocalDate
 
 /**
  * Created by erenalpaslan on 12.01.2023
  */
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CalendarPager(
     calendarState: MutableState<CalendarState>,
@@ -57,9 +55,14 @@ fun CalendarPager(
         calendarState.value = state
     }
 
+    val pagerState = rememberPagerState(
+        initialPage = state.page,
+        pageCount = { state.pages.size.coerceAtLeast(1) }
+    )
+
     CalendarContent(
         state = state,
-        pagerState = viewModel.pagerState,
+        pagerState = pagerState,
         onSelectionChanged = {
                 point, _ ->
             viewModel.onSelectionChanged(point)
@@ -71,7 +74,6 @@ fun CalendarPager(
     )
 }
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CalendarContent(
     state: CalendarState,
@@ -109,10 +111,7 @@ fun CalendarContent(
         Spacer(modifier = Modifier.height(8.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
             if (state.pages.isNotEmpty()) {
-                HorizontalPager(
-                    count = state.pages.size,
-                    state = pagerState,
-                ) {page ->
+                HorizontalPager(state = pagerState) { page ->
                     val list = state.pages[page].second
                     if (list.isNotEmpty()) {
                         Column(modifier = Modifier.fillMaxWidth()) {
