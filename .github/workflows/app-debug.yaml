@@ -37,11 +37,6 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Link preview modules expected by settings.gradle
-        run: |
-          [ -d app ] || ln -s previews/app app
-          [ -d core-navigation ] || ln -s previews/core-navigation core-navigation
-
       - name: Build + unit tests
         run: >
           gradle :app:assembleDebug :app:testDebugUnitTest
