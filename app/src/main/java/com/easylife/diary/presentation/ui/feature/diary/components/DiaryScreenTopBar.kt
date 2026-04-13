@@ -13,7 +13,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
@@ -61,14 +60,7 @@ fun DiaryScreenTopBar(
                         modifier = Modifier.fillMaxWidth().weight(1f),
                         placeholder = {
                             Text("Search", style = MaterialTheme.typography.titleLarge)
-                        },
-                        colors = TextFieldDefaults.textFieldColors(
-                            textColor = MaterialTheme.colorScheme.onBackground,
-                            containerColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent
-                        )
+                        }
                     )
                     IconButton(
                         onClick = {
