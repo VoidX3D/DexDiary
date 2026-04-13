@@ -37,6 +37,10 @@ class SettingsViewModel @Inject constructor(
         navigator.navigate(DiaryRoutes.themeRoute)
     }
 
+    fun onMapsSetupClicked() {
+        navigator.navigate(DiaryRoutes.mapSetupRoute)
+    }
+
     fun onReduceMotionToggled(enabled: Boolean) {
         viewModelScope.launch {
             preferencesManager.setBoolean(PreferenceKeys.REDUCE_MOTION_ENABLED, enabled)

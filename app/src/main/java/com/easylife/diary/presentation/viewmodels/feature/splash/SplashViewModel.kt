@@ -34,27 +34,36 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            shouldShowThemeSelection.map {
-                if (it)
-                    SplashUiState.NewComer
-                else
-                    SplashUiState.OnBoardedUser
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = SplashUiState.Loading
-            ).collect {
-                when (it) {
-                    SplashUiState.Loading -> {}
-                    SplashUiState.NewComer -> navigator.navigate(DiaryRoutes.themeRoute)
-                    SplashUiState.OnBoardedUser -> navigator.navigate(DiaryRoutes.diaryRoute) {
-                        popUpTo(DiaryRoutes.splashRoute) {
-                            inclusive = true
+            val mapsSetupCompleted =
+                preferencesManager.getBoolean(PreferenceKeys.MAPS_SETUP_COMPLETED, false)
+            if (!mapsSetupCompleted) {
+                navigator.navigate(DiaryRoutes.mapSetupRoute) {
+                    popUpTo(DiaryRoutes.splashRoute) { inclusive = true }
+                    launchSingleTop = true
+                }
+                return@launch
+            }
+
+            shouldShowThemeSelection
+                .map {
+                    if (it) SplashUiState.NewComer else SplashUiState.OnBoardedUser
+                }
+                .stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = SplashUiState.Loading
+                ).collect {
+                    when (it) {
+                        SplashUiState.Loading -> {}
+                        SplashUiState.NewComer -> navigator.navigate(DiaryRoutes.themeRoute)
+                        SplashUiState.OnBoardedUser -> navigator.navigate(DiaryRoutes.diaryRoute) {
+                            popUpTo(DiaryRoutes.splashRoute) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
                         }
-                        launchSingleTop = true
                     }
                 }
-            }
         }
     }
 

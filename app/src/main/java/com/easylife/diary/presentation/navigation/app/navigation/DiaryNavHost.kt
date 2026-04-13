@@ -19,6 +19,7 @@ import com.easylife.diary.core.navigation.screen.DiaryRoutes.splashRoute
 import com.easylife.diary.feature.calendar.navigation.calendarScreen
 import com.easylife.diary.feature.diary.navigation.diaryScreen
 import com.easylife.diary.feature.insight.navigation.insightsScreen
+import com.easylife.diary.feature.mapsetup.navigation.mapSetupScreen
 import com.easylife.diary.feature.note.navigation.noteScreen
 import com.easylife.diary.feature.splash.navigation.splashScreen
 import com.easylife.diary.feature.theme.navigation.themeScreen
@@ -38,6 +39,7 @@ fun DiaryNavHost(
         )
     ) {
         splashScreen(navigator)
+        mapSetupScreen(navigator)
         themeScreen(navigator)
         shopScreen(navigator)
         noteScreen(navigator)

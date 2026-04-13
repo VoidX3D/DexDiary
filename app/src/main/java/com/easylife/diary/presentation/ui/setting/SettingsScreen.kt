@@ -93,6 +93,14 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                     viewModel.onThemeButtonClicked()
                 }
                 HorizontalDivider()
+                NavigationButton(
+                    title = "Maps setup",
+                    description = "OpenStreetMap default, Google key optional",
+                    icon = R.drawable.ic_notification
+                ) {
+                    viewModel.onMapsSetupClicked()
+                }
+                HorizontalDivider()
                 NavigationToggleItem(
                     title = "Reduce Motion",
                     checked = reduceMotion,

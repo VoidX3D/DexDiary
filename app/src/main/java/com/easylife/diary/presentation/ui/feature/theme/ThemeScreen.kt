@@ -46,7 +46,7 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
     fun ThemeContent(
         themeUiState: ThemeUiState,
     ) {
-        val pagerState = rememberPagerState { (themeUiState as? ThemeUiState.Success)?.diaryThemes?.size ?: 0 }
+        val pagerState = rememberPagerState { ((themeUiState as? ThemeUiState.Success)?.diaryThemes?.size ?: 0).coerceAtLeast(1) }
         var currentDiaryTheme by remember {
             mutableStateOf<DiaryTheme?>(null)
         }
@@ -56,6 +56,10 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
             }
             ThemeUiState.Loading -> Unit
             is ThemeUiState.Success -> {
+                if (themeUiState.diaryThemes.isEmpty()) {
+                    navigateToMain()
+                    return
+                }
                 Scaffold(
                     containerColor = currentDiaryTheme?.parentBackgroundColor
                         ?: MaterialTheme.colorScheme.background
@@ -90,12 +94,14 @@ class ThemeScreen() : BaseScreen<ThemeViewModel>() {
                                 height = Dimension.fillToConstraints
                             }
                         ) { page ->
+                            val safePage = page.coerceIn(0, themeUiState.diaryThemes.lastIndex)
                             ThemeItem(
-                                diaryTheme = themeUiState.diaryThemes[page],
-                                page = page,
+                                diaryTheme = themeUiState.diaryThemes[safePage],
+                                page = safePage,
                                 pagerState = pagerState
                             )
-                            currentDiaryTheme = themeUiState.diaryThemes[pagerState.currentPage]
+                            currentDiaryTheme =
+                                themeUiState.diaryThemes[pagerState.currentPage.coerceIn(0, themeUiState.diaryThemes.lastIndex)]
                         }
                         Button(modifier = Modifier
                             .constrainAs(applyButtonRef) {

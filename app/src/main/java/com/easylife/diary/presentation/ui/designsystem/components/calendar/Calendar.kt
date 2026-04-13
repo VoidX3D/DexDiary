@@ -56,7 +56,7 @@ fun CalendarPager(
     }
 
     val pagerState = rememberPagerState(
-        initialPage = state.page,
+        initialPage = state.page.coerceAtLeast(0).coerceAtMost((state.pages.size - 1).coerceAtLeast(0)),
         pageCount = { state.pages.size.coerceAtLeast(1) }
     )
 

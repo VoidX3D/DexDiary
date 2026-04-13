@@ -29,4 +29,7 @@ object PreferenceKeys {
     val STREAK_RISK_WARNING_ENABLED = booleanPreferencesKey("STREAK_RISK_WARNING_ENABLED")
     val AI_VIBE_NOTIFICATION_ENABLED = booleanPreferencesKey("AI_VIBE_NOTIFICATION_ENABLED")
     val REDUCE_MOTION_ENABLED = booleanPreferencesKey("REDUCE_MOTION_ENABLED")
+    val MAPS_SETUP_COMPLETED = booleanPreferencesKey("MAPS_SETUP_COMPLETED")
+    val MAP_PROVIDER = stringPreferencesKey("MAP_PROVIDER")
+    val USER_GOOGLE_MAPS_API_KEY = stringPreferencesKey("USER_GOOGLE_MAPS_API_KEY")
 }
