@@ -8,7 +8,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.easylife.diary.core.model.typeConverters.DiaryDateTypeConverter
 import com.easylife.diary.core.model.typeConverters.ListTypeConverter
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by erenalpaslan on 7.01.2023

@@ -2,6 +2,7 @@ plugins {
     id("diary.android.application")
     id("diary.android.application.compose")
     id("diary.hilt")
+    id("kotlin-parcelize")
 }
 
 android {
