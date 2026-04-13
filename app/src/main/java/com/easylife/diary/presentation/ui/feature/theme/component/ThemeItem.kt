@@ -79,7 +79,7 @@ fun PagerScope.ThemeItem(
                             .height(12.dp)
                     )
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = diaryTheme.colorScheme.background,
                 ),
             )

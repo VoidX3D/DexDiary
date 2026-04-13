@@ -30,10 +30,8 @@ fun DiaryEntryTextField(
             Text("Diary entry")
         },
         modifier = Modifier.fillMaxSize(),
-        colors = TextFieldDefaults.colors(
-            focusedTextColor = MaterialTheme.colorScheme.onBackground,
-            unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
-            disabledTextColor = MaterialTheme.colorScheme.onBackground,
+        colors = TextFieldDefaults.textFieldColors(
+            textColor = MaterialTheme.colorScheme.onBackground,
             containerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
