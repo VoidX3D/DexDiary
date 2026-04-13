@@ -72,4 +72,8 @@ class PreferencesManager(private val context: Context) {
     suspend fun setStringSet(key: Preferences.Key<Set<String>>, value: Set<String>) {
         context.dataStore.edit { it[key] = value }
     }
+
+    suspend fun clearAll() {
+        context.dataStore.edit { it.clear() }
+    }
 }

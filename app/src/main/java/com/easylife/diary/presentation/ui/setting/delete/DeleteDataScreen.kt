@@ -62,7 +62,8 @@ class DeleteDataScreen : BaseScreen<DeleteDataViewModel>() {
             DeleteDataDialog(onDismiss = {
                 showDialog = false
             }) {
-                //TODO: Delete preference and open from splash
+                showDialog = false
+                viewModel.deleteAllData()
             }
         }
     }

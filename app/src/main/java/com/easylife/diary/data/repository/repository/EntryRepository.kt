@@ -11,8 +11,10 @@ import java.time.LocalDate
 interface EntryRepository {
 
     suspend fun addEntry(entry: DiaryNote)
+    suspend fun addEntries(entries: List<DiaryNote>)
 
     suspend fun deleteEntry(entry: DiaryNote)
+    suspend fun deleteAllEntries()
 
     suspend fun updateEntry(entry: DiaryNote)
 

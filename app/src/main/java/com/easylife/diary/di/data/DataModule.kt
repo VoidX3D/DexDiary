@@ -12,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 /**
@@ -48,13 +49,25 @@ class DataModule {
         diaryDateTypeConverter: DiaryDateTypeConverter,
         listTypeConverter: ListTypeConverter
     ): DiaryDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            DiaryDatabase::class.java,
-            DiaryDatabase.DB_NAME)
-            .addTypeConverter(diaryDateTypeConverter)
-            .addTypeConverter(listTypeConverter)
-            .fallbackToDestructiveMigration()
-            .build()
+        return runCatching {
+            Room.databaseBuilder(
+                appContext,
+                DiaryDatabase::class.java,
+                DiaryDatabase.DB_NAME
+            )
+                .addTypeConverter(diaryDateTypeConverter)
+                .addTypeConverter(listTypeConverter)
+                .setQueryCoroutineContext(Dispatchers.IO)
+                .fallbackToDestructiveMigration()
+                .build()
+        }.getOrElse {
+            Room.databaseBuilder(
+                appContext,
+                DiaryDatabase::class.java,
+                DiaryDatabase.DB_NAME
+            )
+                .fallbackToDestructiveMigration()
+                .build()
+        }
     }
 }

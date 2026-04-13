@@ -18,8 +18,16 @@ class EntryRepositoryImpl @Inject constructor(
         entryDao.addEntry(entry)
     }
 
+    override suspend fun addEntries(entries: List<DiaryNote>) {
+        entryDao.addEntries(entries)
+    }
+
     override suspend fun deleteEntry(entry: DiaryNote) {
         entryDao.deleteEntry(entry)
+    }
+
+    override suspend fun deleteAllEntries() {
+        entryDao.deleteAllEntries()
     }
 
     override suspend fun updateEntry(entry: DiaryNote) {

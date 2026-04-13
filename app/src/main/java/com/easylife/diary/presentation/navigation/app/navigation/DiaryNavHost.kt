@@ -18,9 +18,11 @@ import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.core.navigation.screen.DiaryRoutes.splashRoute
 import com.easylife.diary.feature.calendar.navigation.calendarScreen
 import com.easylife.diary.feature.diary.navigation.diaryScreen
+import com.easylife.diary.feature.ai.navigation.aiEngineScreen
 import com.easylife.diary.feature.insight.navigation.insightsScreen
 import com.easylife.diary.feature.mapsetup.navigation.mapSetupScreen
 import com.easylife.diary.feature.note.navigation.noteScreen
+import com.easylife.diary.feature.setup.navigation.setupWizardScreens
 import com.easylife.diary.feature.splash.navigation.splashScreen
 import com.easylife.diary.feature.theme.navigation.themeScreen
 import com.easylife.diary.feature.shop.navigation.shopScreen
@@ -39,6 +41,7 @@ fun DiaryNavHost(
         )
     ) {
         splashScreen(navigator)
+        setupWizardScreens(navigator)
         mapSetupScreen(navigator)
         themeScreen(navigator)
         shopScreen(navigator)
@@ -46,6 +49,7 @@ fun DiaryNavHost(
         diaryScreen(navigator)
         calendarScreen(navigator)
         insightsScreen(navigator)
+        aiEngineScreen(navigator)
         settingsScreen(navigator)
     }
 }

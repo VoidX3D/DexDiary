@@ -15,4 +15,11 @@ object DiaryRoutes {
     const val deleteDataRoute = "delete_route"
     const val notificationSettingsRoute = "notification_settings_route"
     const val mapSetupRoute = "map_setup_route"
+    const val setupWelcomeRoute = "setup_welcome_route"
+    const val setupStorageRoute = "setup_storage_route"
+    const val setupNotificationsRoute = "setup_notifications_route"
+    const val setupBatteryRoute = "setup_battery_route"
+    const val setupReadyRoute = "setup_ready_route"
+    const val aiEngineRoute = "ai_engine_route"
+    const val backupRoute = "backup_route"
 }

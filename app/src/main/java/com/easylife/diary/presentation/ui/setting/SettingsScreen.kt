@@ -39,6 +39,7 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
     override fun Screen() {
         val scrollableState = rememberScrollState()
         val reduceMotion by viewModel.reduceMotionEnabled.collectAsState()
+        val darkModeEnabled by viewModel.darkModeEnabled.collectAsState()
         val motionOff = rememberReduceMotionEnabled()
         var showFeedback by remember {
             mutableStateOf(false)
@@ -106,6 +107,11 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                     checked = reduceMotion,
                     onCheckedChange = viewModel::onReduceMotionToggled
                 )
+                NavigationToggleItem(
+                    title = "Dark Mode",
+                    checked = darkModeEnabled,
+                    onCheckedChange = viewModel::onDarkModeToggled
+                )
                 Spacer(modifier = Modifier.height(36.dp))
                 Text(
                     text = "MY DATA",
@@ -116,7 +122,15 @@ class SettingsScreen : BaseScreen<SettingsViewModel>() {
                     title = "Backup & Restore",
                     icon = R.drawable.ic_cloud
                 ) {
-
+                    viewModel.onBackupClicked()
+                }
+                HorizontalDivider()
+                NavigationButton(
+                    title = "AI Engine",
+                    description = "Add OpenAI/Gemini/Groq keys",
+                    icon = R.drawable.ic_help
+                ) {
+                    viewModel.onAiEngineClicked()
                 }
                 HorizontalDivider()
                 NavigationButton(

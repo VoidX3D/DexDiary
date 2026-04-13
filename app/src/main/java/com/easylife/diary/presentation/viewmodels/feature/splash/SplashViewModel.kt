@@ -34,6 +34,15 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            val setupCompleted = preferencesManager.getBoolean(PreferenceKeys.SETUP_READY_COMPLETED, false)
+            if (!setupCompleted) {
+                navigator.navigate(DiaryRoutes.setupWelcomeRoute) {
+                    popUpTo(DiaryRoutes.splashRoute) { inclusive = true }
+                    launchSingleTop = true
+                }
+                return@launch
+            }
+
             val mapsSetupCompleted =
                 preferencesManager.getBoolean(PreferenceKeys.MAPS_SETUP_COMPLETED, false)
             if (!mapsSetupCompleted) {

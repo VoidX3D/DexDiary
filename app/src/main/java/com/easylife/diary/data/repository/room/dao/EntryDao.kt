@@ -16,11 +16,17 @@ interface EntryDao {
     @Insert
     suspend fun addEntry(entry: DiaryNote)
 
+    @Insert
+    suspend fun addEntries(entries: List<DiaryNote>)
+
     @Update
     suspend fun updateEntry(entry: DiaryNote)
 
     @Delete
     suspend fun deleteEntry(entry: DiaryNote)
+
+    @Query("DELETE FROM Entries")
+    suspend fun deleteAllEntries()
 
     @Query("SELECT * FROM Entries")
     suspend fun getAllEntries(): List<DiaryNote>

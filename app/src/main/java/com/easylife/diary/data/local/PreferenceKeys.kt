@@ -32,4 +32,15 @@ object PreferenceKeys {
     val MAPS_SETUP_COMPLETED = booleanPreferencesKey("MAPS_SETUP_COMPLETED")
     val MAP_PROVIDER = stringPreferencesKey("MAP_PROVIDER")
     val USER_GOOGLE_MAPS_API_KEY = stringPreferencesKey("USER_GOOGLE_MAPS_API_KEY")
+    val SETUP_WELCOME_COMPLETED = booleanPreferencesKey("SETUP_WELCOME_COMPLETED")
+    val SETUP_STORAGE_COMPLETED = booleanPreferencesKey("SETUP_STORAGE_COMPLETED")
+    val SETUP_NOTIFICATIONS_COMPLETED = booleanPreferencesKey("SETUP_NOTIFICATIONS_COMPLETED")
+    val SETUP_BATTERY_COMPLETED = booleanPreferencesKey("SETUP_BATTERY_COMPLETED")
+    val SETUP_READY_COMPLETED = booleanPreferencesKey("SETUP_READY_COMPLETED")
+
+    val OPENAI_API_KEY = stringPreferencesKey("OPENAI_API_KEY")
+    val GEMINI_API_KEY = stringPreferencesKey("GEMINI_API_KEY")
+    val GROQ_API_KEY = stringPreferencesKey("GROQ_API_KEY")
+    val BACKUP_REMINDER_ENABLED = booleanPreferencesKey("BACKUP_REMINDER_ENABLED")
+    val BACKUP_ENCRYPTION_ENABLED = booleanPreferencesKey("BACKUP_ENCRYPTION_ENABLED")
 }

@@ -10,6 +10,7 @@ import com.easylife.diary.core.navigation.screen.DiaryRoutes
 import com.easylife.diary.core.navigation.screen.DiaryRoutes.settingsRoute
 import com.easylife.diary.delete.data.navigation.deleteDataScreen
 import com.easylife.diary.password.navigation.passwordScreen
+import com.easylife.diary.presentation.ui.setting.backup.navigation.backupScreen
 import com.easylife.diary.presentation.ui.setting.NotificationSettingsScreen
 import com.easylife.diary.presentation.ui.setting.SettingsScreen
 
@@ -36,6 +37,7 @@ fun NavGraphBuilder.settingsScreen(
     }
     passwordScreen(navigator)
     deleteDataScreen(navigator)
+    backupScreen(navigator)
     composable(route = DiaryRoutes.notificationSettingsRoute) {
         NotificationSettingsScreen().Create(
             navigator = navigator,
