@@ -3,6 +3,8 @@ package com.easylife.diary.feature.insight
 import androidx.lifecycle.viewModelScope
 import com.easylife.diary.core.common.util.DiaryResult
 import com.easylife.diary.core.designsystem.base.BaseViewModel
+import com.easylife.diary.core.domain.usecases.EvaluateAchievementsUseCase
+import com.easylife.diary.core.domain.usecases.GenerateAiInsightUseCase
 import com.easylife.diary.core.domain.usecases.GetWeekDataUseCase
 import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
@@ -21,7 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class InsightsViewModel @Inject constructor(
     private val getWeekDataUseCase: GetWeekDataUseCase,
-    private val preferencesManager: PreferencesManager
+    private val preferencesManager: PreferencesManager,
+    private val generateAiInsightUseCase: GenerateAiInsightUseCase,
+    private val evaluateAchievementsUseCase: EvaluateAchievementsUseCase
 ): BaseViewModel() {
 
     private val _uiState: MutableStateFlow<InsightsUiState> = MutableStateFlow(InsightsUiState())
@@ -29,6 +33,7 @@ class InsightsViewModel @Inject constructor(
 
     init {
         getWeekData()
+        loadAiAndAchievements()
     }
 
     fun getWeekData() = viewModelScope.launch {
@@ -42,6 +47,18 @@ class InsightsViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun loadAiAndAchievements() = viewModelScope.launch {
+        val (summary, vibe) = generateAiInsightUseCase.execute()
+        val achievements = evaluateAchievementsUseCase.execute()
+        _uiState.update {
+            it.copy(
+                aiWeeklySummary = summary,
+                aiVibe = vibe,
+                achievements = achievements
+            )
         }
     }
 

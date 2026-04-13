@@ -58,6 +58,28 @@ class InsightsScreen : BaseScreen<InsightsViewModel>() {
                 AIOracleSummaryCard(summary = uiState.aiWeeklySummary ?: "AI Summary loading...")
                 Spacer(modifier = Modifier.height(16.dp))
                 AIOracleVibeCard(vibe = uiState.aiVibe ?: "AI Vibe loading...")
+                Spacer(modifier = Modifier.height(16.dp))
+                AchievementCard(achievements = uiState.achievements)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AchievementCard(achievements: List<String>) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Achievements", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            if (achievements.isEmpty()) {
+                Text("No achievements unlocked yet.", style = MaterialTheme.typography.bodyMedium)
+            } else {
+                Text(achievements.joinToString(separator = "\n") { "• $it" }, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

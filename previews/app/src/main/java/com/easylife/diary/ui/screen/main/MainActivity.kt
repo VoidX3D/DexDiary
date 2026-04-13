@@ -1,6 +1,9 @@
 package com.easylife.diary.ui.screen.main
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Build
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +12,8 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.easylife.diary.core.navigation.DiaryNavigator
 import com.easylife.diary.ui.screen.main.theme.DiaryTheme
@@ -27,6 +32,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestNotificationPermissionIfNeeded()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             window.setFlags(
@@ -47,5 +53,21 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private fun requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            == PackageManager.PERMISSION_GRANTED
+        ) return
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+            NOTIFICATION_PERMISSION_REQUEST
+        )
+    }
+
+    private companion object {
+        const val NOTIFICATION_PERMISSION_REQUEST = 4101
     }
 }

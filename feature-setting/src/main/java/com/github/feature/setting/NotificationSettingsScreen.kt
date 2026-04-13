@@ -9,10 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.easylife.diary.core.designsystem.base.BaseScreen
-import com.easylife.diary.core.designsystem.components.NavigationButton
-import com.easylife.diary.core.designsystem.theme.md_theme_primary
 import com.easylife.diary.core.designsystem.theme.md_theme_onSurfaceVariant
-import com.easylife.diary.R // Assuming you have notification related drawables
 
 /**
  * Created by erenalpaslan on 14.04.2026

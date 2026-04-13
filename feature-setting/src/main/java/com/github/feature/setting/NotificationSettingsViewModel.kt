@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.easylife.diary.core.designsystem.base.BaseViewModel
 import com.easylife.diary.core.preferences.PreferenceKeys
 import com.easylife.diary.core.preferences.PreferencesManager
+import com.github.feature.setting.notification.DiaryNotificationScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class NotificationSettingsViewModel @Inject constructor(
-    private val preferencesManager: PreferencesManager
+    private val preferencesManager: PreferencesManager,
+    private val notificationScheduler: DiaryNotificationScheduler
 ) : BaseViewModel() {
 
     private val _isDailyReminderEnabled = MutableStateFlow(false)
@@ -44,6 +46,7 @@ class NotificationSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesManager.setBoolean(PreferenceKeys.DAILY_REMINDER_ENABLED, enabled)
             _isDailyReminderEnabled.value = enabled
+            notificationScheduler.setDailyReminder(enabled)
         }
     }
 
@@ -51,6 +54,7 @@ class NotificationSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesManager.setBoolean(PreferenceKeys.STREAK_RISK_WARNING_ENABLED, enabled)
             _isStreakRiskWarningEnabled.value = enabled
+            notificationScheduler.setStreakRiskWarning(enabled)
         }
     }
 
@@ -58,6 +62,7 @@ class NotificationSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesManager.setBoolean(PreferenceKeys.AI_VIBE_NOTIFICATION_ENABLED, enabled)
             _isAIVibeNotificationEnabled.value = enabled
+            notificationScheduler.setOracleVibe(enabled)
         }
     }
 }

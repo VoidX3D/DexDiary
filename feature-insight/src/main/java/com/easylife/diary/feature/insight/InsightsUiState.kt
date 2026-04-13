@@ -7,5 +7,8 @@ import com.easylife.diary.core.model.insights.WeekData
  */
 data class InsightsUiState(
     val streakData: List<WeekData> = emptyList(),
-    val longestChain: Int = 0
+    val longestChain: Int = 0,
+    val aiWeeklySummary: String? = null,
+    val aiVibe: String? = null,
+    val achievements: List<String> = emptyList()
 )
